@@ -1,13 +1,13 @@
-import MainSection from '@/components/MainSection';
-import EmojiSection from '@/components/EmojiSection';
-import BottomCTA from '@/components/BottomCTA';
+import MainSection from '@/pages/Home/MainSection';
+import EmojiSection from '@/pages/Home/EmojiSection';
+import BottomCTA from '@/pages/Home/BottomCTA';
 
 export default function Home() {
   return (
-    <main>
+    <>
       <MainSection />
       <EmojiSection />
       <BottomCTA />
-    </main>
+    </>
   );
 }
