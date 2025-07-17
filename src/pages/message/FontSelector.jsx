@@ -9,21 +9,21 @@ function FontSelector({ value, onChange }) {
 
   return (
     <div className={styles.wrapper}>
-      <label className={styles.label}>폰트 선택</label>
-      <div className={styles.options}>
+      <label htmlFor='font' className={styles.label}>
+        폰트 선택
+      </label>
+      <select
+        id='font'
+        className={styles.select}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
         {FONT_OPTIONS.map((option) => (
-          <button
-            key={option.value}
-            type='button'
-            onClick={() => onChange(option.value)}
-            className={`$styles.option ${
-              value === option.value ? styles.selected : ''
-            }`}
-          >
+          <option key={option.value} value={option.value}>
             {option.label}
-          </button>
+          </option>
         ))}
-      </div>
+      </select>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import styles from '@/pages/message/InputField.module.scss';
+import styles from '@/components/ui/InputField.module.scss';
 
 function InputField({
   id,

@@ -1,34 +1,37 @@
 import { useEffect, useRef, useState } from 'react';
 
-import defaultImage from '@/assets/images/defaultimage';
+import Img1 from '@/assets/images/profile1.png';
+import Img2 from '@/assets/images/profile2.png';
+import ProfileIcon from '@/components/ui/ProfileIcon';
 import styles from '@/pages/message/ProfileUploader.module.scss';
 
 function ProfileUploader({ imageFile, setImageFile }) {
-  //미리보기 URL
   const [preview, setPreview] = useState(null);
-  const inputRef = useRef();
-  const thumbnailList = [preview].filter(Boolean); // 일단 선택된 이미지만 하나 보여주기
+  const inputRef = useRef(null);
+  const selectImages = [...Array(5)].flatMap(() => [Img1, Img2]);
 
+  //imageFile 바뀔 때마다 실행
   useEffect(() => {
     if (!imageFile) {
       setPreview(null);
       return;
     }
 
-    //imageFile 바뀌면 임시 URL 만들어서 preview에 넣어줌
+    //파일 URL로 preview에 저장
     const objectUrl = URL.createObjectURL(imageFile);
     setPreview(objectUrl);
 
-    //컴포넌트 사라질 때 메모리 정리
     return () => URL.revokeObjectURL(objectUrl);
   }, [imageFile]);
 
-  //사진 클릭 시, input 창에 연결
+  //file 클릭 유도
   const handleClick = () => {
-    inputRef.current.click();
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
   };
 
-  //파일 선택 시 첫번째 파일 상태에 저장
+  //첫 번째 이미지 파일 setImageFile로 전달
   const handleChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -38,26 +41,56 @@ function ProfileUploader({ imageFile, setImageFile }) {
 
   return (
     <div className={styles.wrapper}>
-      <label className={styles.label}>프로필 이미지</label>
+      <label htmlFor='profile-uploader' className={styles.label}>
+        프로필 이미지
+      </label>
+
       <div className={styles.previewRow}>
-        <div className={styles.profileImage} onClick={handleClick}>
-          <img
-            src={preview || defaultImage}
-            alt='프로필 미리보기'
-            className={styles.image}
-          />
+        {/* 왼쪽: 미리보기 */}
+        <div
+          onClick={handleClick}
+          role='button'
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') handleClick();
+          }}
+        >
+          <ProfileIcon src={preview || ''} size='big' stroke />
         </div>
-        <p className={styles.caption}>프로필 이미지를 선택해주세요!</p>
+
+        {/* 오른쪽: 텍스트 + 썸네일 */}
+        <div className={styles.rightBox}>
+          <p className={styles.caption}>프로필 이미지를 선택해주세요!</p>
+          <div className={styles.thumbnailRow}>
+            {selectImages.map((img, i) => (
+              <div
+                key={i}
+                className={styles.thumbnail}
+                onClick={() => {
+                  setImageFile(null);
+                  setPreview(img);
+                }}
+                onKeyDown={(e) => {
+                  {
+                    /* enter나 space 눌렀을 때 실행 */
+                  }
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    setImageFile(null);
+                    setPreview(img);
+                  }
+                }}
+                role='button'
+                tabIndex={0}
+              >
+                <ProfileIcon src={img} size='big' />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      <div className={styles.thumbnailRow}>
-        {thumbnailList.map((img, i) => (
-          <div key={i} className={styles.thumbnail}>
-            <img src={img} alt={`썸네일 ${i}`} />
-          </div>
-        ))}
-      </div>
       <input
+        id='profile-uploader'
         type='file'
         accept='image/*'
         ref={inputRef}
