@@ -1,8 +1,8 @@
-import styles from '@/pages/message/FontSelector.module.scss';
+import styles from '@/pages/Message/FontSelector.module.scss';
 
 function FontSelector({ value, onChange }) {
   const FONT_OPTIONS = [
-    { label: 'Noto Sans', value: 'noto-sans' }, // 기본값
+    { label: 'Noto Sans', value: 'noto-sans' },
     { label: 'Pretendard', value: 'pretendard' },
     { label: '나눔손글씨', value: 'nanum' },
   ];

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Img1 from '@/assets/images/profile1.png';
 import Img2 from '@/assets/images/profile2.png';
 import ProfileIcon from '@/components/ui/ProfileIcon';
-import styles from '@/pages/message/ProfileUploader.module.scss';
+import styles from '@/pages/Message/ProfileUploader.module.scss';
 
 function ProfileUploader({ imageFile, setImageFile }) {
   const [preview, setPreview] = useState(null);

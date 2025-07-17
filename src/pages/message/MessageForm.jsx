@@ -16,7 +16,7 @@ function MessageForm() {
   const [font, setFont] = useState('noto-sans');
   const [imageFile, setImageFile] = useState(null);
 
-  //임려칸에서 포커스 빠질 때 실행
+  //입력 칸에서 포커스 빠질 때 실행
   const handleFromBlur = () => {
     if (from.trim() === '') {
       setFromError('값을 입력해 주세요.');

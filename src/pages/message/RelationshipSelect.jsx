@@ -1,4 +1,4 @@
-import styles from '@/pages/message/RelationshipSelect.module.scss';
+import styles from '@/pages/Message/RelationshipSelect.module.scss';
 
 function RelationshipSelect({ value, onChange }) {
   const RELATIONSHIPS = ['친구', '지인', '동료', '가족'];
